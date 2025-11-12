@@ -1,0 +1,1036 @@
+
+==============================================================================
+blink.cmp:                                                                2 ⚠️
+
+System ~
+- ✅ OK curl is installed
+- ✅ OK git is installed
+- ✅ OK Your system is supported by pre-built binaries (aarch64-apple-darwin)
+- ⚠️ WARNING blink_cmp_fuzzy lib is not downloaded/built
+
+Sources ~
+- ⚠️ WARNING Some providers may show up as "disabled" but are enabled dynamically (i.e. cmdline)
+
+Default sources ~
+- lsp (blink.cmp.sources.lsp)
+- path (blink.cmp.sources.path)
+- snippets (blink.cmp.sources.snippets)
+- lazydev (lazydev.integrations.blink)
+
+Cmdline sources ~
+- buffer (blink.cmp.sources.buffer)
+- cmdline (blink.cmp.sources.cmdline)
+
+Disabled sources ~
+- omni (blink.cmp.sources.complete_func)
+
+==============================================================================
+fidget:                                                                     ✅
+
+fidget.setup ~
+- ✅ OK All user-specified options are known and accounted for
+
+fidget.integration ~
+
+fidget.progress ~
+- ✅ OK Using LspProgress handler implementation
+- ✅ OK Option 'progress.lsp.progress_ringbuf_size' is 0, using default size
+
+fidget.notification ~
+- ℹ️ INFO vim.notify() is not set to fidget.notify()
+- ℹ️ INFO Rendering notifications for regular UI (e.g., nvim TUI)
+
+==============================================================================
+kickstart:                                                                  ✅
+
+kickstart.nvim ~
+- NOTE: Not every warning is a 'must-fix' in `:checkhealth`
+
+    Fix only warnings for plugins and languages you intend to use.
+      Mason will give warnings for languages that are not installed.
+      You do not need to install, unless you want to use those languages!
+- System Information: {
+    machine = "arm64",
+    release = "24.2.0",
+    sysname = "Darwin",
+    version = "Darwin Kernel Version 24.2.0: Fri Dec  6 19:02:41 PST 2024; root:xnu-11215.61.5~2/RELEASE_ARM64_T6030"
+  }
+- ✅ OK Neovim version is: '0.11.5'
+- ✅ OK Found executable: 'git'
+- ✅ OK Found executable: 'make'
+- ✅ OK Found executable: 'unzip'
+- ✅ OK Found executable: 'rg'
+
+==============================================================================
+lazy:                                                               2 ⚠️  1 ❌
+
+lazy.nvim ~
+- {lazy.nvim} version `11.17.5`
+- ✅ OK {git} `version 2.44.0`
+- ✅ OK no existing packages found by other package managers
+- ✅ OK packer_compiled.lua not found
+
+luarocks ~
+- checking `hererocks` installation
+- ✅ OK no plugins require `luarocks`, so you can ignore any warnings below
+- ✅ OK {python3} `Python 3.13.3`
+- ❌ ERROR {/Users/paulo.venonesdasilva/.local/share/nvim/lazy-rocks/hererocks/bin/luarocks} not installed
+- ⚠️ WARNING {/Users/paulo.venonesdasilva/.local/share/nvim/lazy-rocks/hererocks/bin/lua} version `5.1` not installed
+- ⚠️ WARNING Lazy won't be able to install plugins that require `luarocks`.
+  Here's what you can do:
+   - fix your `luarocks` installation
+   - disable *hererocks* with `opts.rocks.hererocks = false`
+   - disable `luarocks` support completely with `opts.rocks.enabled = false`
+
+==============================================================================
+lspconfig:                                                                  ✅
+
+- Skipped. This healthcheck is redundant with `:checkhealth vim.lsp`.
+
+==============================================================================
+luasnip:                                                                    ✅
+
+luasnip ~
+- ✅ OK jsregexp is installed
+
+==============================================================================
+mason:                                                                    6 ⚠️
+
+mason.nvim ~
+- ✅ OK mason.nvim version v2.1.0
+- ✅ OK PATH: prepend
+- ✅ OK Providers: 
+    mason.providers.registry-api
+    mason.providers.client
+- ✅ OK neovim version >= 0.10.0
+
+mason.nvim [Registries] ~
+- ✅ OK Registry `github.com/mason-org/mason-registry version: 2025-11-11-posh-raft` is installed.
+
+mason.nvim [Core utils] ~
+- ✅ OK unzip: `UnZip 6.00 of 20 April 2009, by Info-ZIP.  Maintained by C. Spieler.  Send`
+- ⚠️ WARNING wget: not available
+  - ADVICE:
+    - spawn: wget failed with exit code - and signal -. Could not find executable "wget" in PATH.
+
+- ✅ OK curl: `curl 8.7.1 (x86_64-apple-darwin24.0) libcurl/8.7.1 (SecureTransport) LibreSSL/3.3.6 zlib/1.2.12 nghttp2/1.63.0`
+- ✅ OK gzip: `Apple gzip 448.0.3`
+- ✅ OK tar: `bsdtar 3.5.3 - libarchive 3.5.3 zlib/1.2.12 liblzma/5.4.3 bz2lib/1.0.8 `
+- ✅ OK bash: `GNU bash, version 3.2.57(1)-release (arm64-apple-darwin24)`
+- ✅ OK sh: `Ok`
+
+mason.nvim [Languages] ~
+- ⚠️ WARNING Go: not available
+  - ADVICE:
+    - spawn: go failed with exit code - and signal -. Could not find executable "go" in PATH.
+
+- ⚠️ WARNING cargo: not available
+  - ADVICE:
+    - spawn: cargo failed with exit code - and signal -. Could not find executable "cargo" in PATH.
+
+- ⚠️ WARNING luarocks: not available
+  - ADVICE:
+    - spawn: luarocks failed with exit code - and signal -. Could not find executable "luarocks" in PATH.
+
+- ⚠️ WARNING Composer: not available
+  - ADVICE:
+    - spawn: composer failed with exit code - and signal -. Could not find executable "composer" in PATH.
+
+- ✅ OK node: `v20.9.0`
+- ✅ OK Ruby: `ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin24]`
+- ✅ OK java: `openjdk version "21" 2023-09-19 LTS`
+- ⚠️ WARNING julia: not available
+  - ADVICE:
+    - spawn: julia failed with exit code - and signal -. Could not find executable "julia" in PATH.
+
+- ✅ OK python: `Python 3.13.3`
+- ✅ OK RubyGem: `3.0.3.1`
+- ✅ OK JAVA_HOME: `openjdk version "21" 2023-09-19 LTS`
+- ✅ OK npm: `10.1.0`
+- ✅ OK javac: `javac 21`
+- ✅ OK pip: `pip 25.0.1 from /opt/homebrew/lib/python3.13/site-packages/pip (python 3.13)`
+- ✅ OK python venv: `Ok`
+- ✅ OK PHP: `PHP 8.4.6 (cli) (built: Apr  8 2025 19:55:31) (NTS)`
+
+==============================================================================
+mason-lspconfig:                                                            ✅
+
+mason-lspconfig.nvim ~
+- ✅ OK Neovim v0.11
+- ✅ OK mason.nvim v2
+
+==============================================================================
+nvim-treesitter:                                                          1 ⚠️
+
+Installation ~
+- ⚠️ WARNING `tree-sitter` executable not found (parser generator, only needed for :TSInstallFromGrammar, not required for :TSInstall)
+- ✅ OK `node` found v20.9.0 (only needed for :TSInstallFromGrammar)
+- ✅ OK `git` executable found.
+- ✅ OK `cc` executable found. Selected from { vim.NIL, "cc", "gcc", "clang", "cl", "zig" }
+  Version: Apple clang version 16.0.0 (clang-1600.0.26.6)
+- ✅ OK Neovim was compiled with tree-sitter runtime ABI version 15 (required >=13). Parsers must be compatible with runtime ABI.
+
+OS Info:
+{
+  machine = "arm64",
+  release = "24.2.0",
+  sysname = "Darwin",
+  version = "Darwin Kernel Version 24.2.0: Fri Dec  6 19:02:41 PST 2024; root:xnu-11215.61.5~2/RELEASE_ARM64_T6030"
+} ~
+
+Parser/Features         H L F I J
+  - bash                ✓ ✓ ✓ . ✓
+  - c                   ✓ ✓ ✓ ✓ ✓
+  - diff                ✓ . ✓ . ✓
+  - html                ✓ ✓ ✓ ✓ ✓
+  - java                ✓ ✓ ✓ ✓ ✓
+  - lua                 ✓ ✓ ✓ ✓ ✓
+  - luadoc              ✓ . . . .
+  - markdown            ✓ . ✓ ✓ ✓
+  - markdown_inline     ✓ . . . ✓
+  - query               ✓ ✓ ✓ ✓ ✓
+  - typescript          ✓ ✓ ✓ ✓ ✓
+  - vim                 ✓ ✓ ✓ . ✓
+  - vimdoc              ✓ . . . ✓
+  - vue                 ✓ . ✓ ✓ ✓
+
+  Legend: H[ighlight], L[ocals], F[olds], I[ndents], In[j]ections
+         +) multiple parsers found, only one will be used
+         x) errors found in the query, try to run :TSUpdate {lang} ~
+
+==============================================================================
+vim.deprecated:                                                             ✅
+
+- ✅ OK No deprecated functions detected
+
+==============================================================================
+vim.health:                                                                 ✅
+
+Configuration ~
+- ✅ OK no issues found
+
+Runtime ~
+- ✅ OK $VIMRUNTIME: /opt/homebrew/Cellar/neovim/0.11.5/share/nvim/runtime
+
+Performance ~
+- ✅ OK Build type: Release
+
+Remote Plugins ~
+- ✅ OK Up to date
+
+terminal ~
+- key_backspace (kbs) terminfo entry: `key_backspace=^H`
+- key_dc (kdch1) terminfo entry: `key_dc=\E[3~`
+- $TERM_PROGRAM="iTerm.app"
+- $COLORTERM="truecolor"
+
+External Tools ~
+- ✅ OK ripgrep 14.1.0 (/opt/homebrew/bin/rg)
+
+==============================================================================
+vim.lsp:                                                                    ✅
+
+- LSP log level : WARN
+- Log path: /Users/paulo.venonesdasilva/.local/state/nvim/lsp.log
+- Log size: 12 KB
+
+vim.lsp: Active Clients ~
+- No active clients
+
+vim.lsp: Enabled Configurations ~
+- cssls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "vscode-css-language-server", "--stdio" }
+  - filetypes: css, scss, less
+  - init_options: {
+      provideFormatter = true
+    }
+  - root_markers: { "package.json", ".git" }
+  - settings: {
+      css = {
+        validate = true
+      },
+      less = {
+        validate = true
+      },
+      scss = {
+        validate = true
+      }
+    }
+
+- emmet_ls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "emmet-ls", "--stdio" }
+  - filetypes: astro, css, eruby, html, htmlangular, htmldjango, javascriptreact, less, pug, sass, scss, svelte, templ, typescriptreact, vue
+  - root_markers: { ".git" }
+
+- eslint:
+  - before_init: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/eslint.lua:157>
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "vscode-eslint-language-server", "--stdio" }
+  - filetypes: javascript, javascriptreact, javascript.jsx, typescript, typescriptreact, typescript.tsx, vue, svelte, astro, htmlangular
+  - handlers: {
+      ["eslint/confirmESLintExecution"] = <function 1>,
+      ["eslint/noLibrary"] = <function 2>,
+      ["eslint/openDoc"] = <function 3>,
+      ["eslint/probeFailed"] = <function 4>
+    }
+  - on_attach: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/eslint.lua:76>
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/eslint.lua:89>
+  - settings: {
+      codeAction = {
+        disableRuleComment = {
+          enable = true,
+          location = "separateLine"
+        },
+        showDocumentation = {
+          enable = true
+        }
+      },
+      codeActionOnSave = {
+        enable = false,
+        mode = "all"
+      },
+      experimental = {
+        useFlatConfig = false
+      },
+      format = true,
+      nodePath = "",
+      onIgnoredFiles = "off",
+      problems = {
+        shortenToSingleLine = false
+      },
+      quiet = false,
+      rulesCustomizations = {},
+      run = "onType",
+      useESLintClass = false,
+      validate = "on",
+      workingDirectory = {
+        mode = "auto"
+      }
+    }
+  - workspace_required: true
+
+- graphql:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "graphql-lsp", "server", "-m", "stream" }
+  - filetypes: graphql, typescriptreact, javascriptreact
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/graphql.lua:19>
+
+- html:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "vscode-html-language-server", "--stdio" }
+  - filetypes: html, templ
+  - init_options: {
+      configurationSection = { "html", "css", "javascript" },
+      embeddedLanguages = {
+        css = true,
+        javascript = true
+      },
+      provideFormatter = true
+    }
+  - root_markers: { "package.json", ".git" }
+  - settings: {}
+
+- jdtls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/jdtls.lua:77>
+  - filetypes: java
+  - init_options: {}
+  - root_markers: { { "mvnw", "gradlew", "settings.gradle", "settings.gradle.kts", ".git" }, { "build.xml", "pom.xml", "build.gradle", "build.gradle.kts" } }
+
+- jsonls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "vscode-json-language-server", "--stdio" }
+  - filetypes: json, jsonc
+  - init_options: {
+      provideFormatter = true
+    }
+  - root_markers: { ".git" }
+
+- lua_ls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "lua-language-server" }
+  - filetypes: lua
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/lazydev.nvim/lua/lazydev/integrations/lspconfig.lua:10>
+  - root_markers: { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" }
+
+- rust_analyzer:
+  - before_init: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/rust_analyzer.lua:117>
+  - capabilities: {
+      experimental = {
+        commands = {
+          commands = { "rust-analyzer.showReferences", "rust-analyzer.runSingle", "rust-analyzer.debugSingle" }
+        },
+        serverStatusNotification = true
+      },
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "rust-analyzer" }
+  - filetypes: rust
+  - on_attach: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/rust_analyzer.lua:141>
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/rust_analyzer.lua:59>
+
+- stylua:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "stylua", "--lsp" }
+  - filetypes: lua
+  - root_markers: { ".stylua.toml", "stylua.toml", ".editorconfig" }
+
+- svelte:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "svelteserver", "--stdio" }
+  - filetypes: svelte
+  - on_attach: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/svelte.lua:28>
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/svelte.lua:16>
+
+- tailwindcss:
+  - before_init: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/tailwindcss.lua:98>
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "tailwindcss-language-server", "--stdio" }
+  - filetypes: aspnetcorerazor, astro, astro-markdown, blade, clojure, django-html, htmldjango, edge, eelixir, elixir, ejs, erb, eruby, gohtml, gohtmltmpl, haml, handlebars, hbs, html, htmlangular, html-eex, heex, jade, leaf, liquid, markdown, mdx, mustache, njk, nunjucks, php, razor, slim, twig, css, less, postcss, sass, scss, stylus, sugarss, javascript, javascriptreact, reason, rescript, typescript, typescriptreact, vue, svelte, templ
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/tailwindcss.lua:110>
+  - settings: {
+      tailwindCSS = {
+        classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+        includeLanguages = {
+          eelixir = "html-eex",
+          elixir = "phoenix-heex",
+          eruby = "erb",
+          heex = "phoenix-heex",
+          htmlangular = "html",
+          templ = "html"
+        },
+        lint = {
+          cssConflict = "warning",
+          invalidApply = "error",
+          invalidConfigPath = "error",
+          invalidScreen = "error",
+          invalidTailwindDirective = "error",
+          invalidVariant = "error",
+          recommendedVariantOrder = "warning"
+        },
+        validate = true
+      }
+    }
+  - workspace_required: true
+
+- taplo:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "taplo", "lsp", "stdio" }
+  - filetypes: toml
+  - root_markers: { ".taplo.toml", "taplo.toml", ".git" }
+
+- ts_ls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "typescript-language-server", "--stdio" }
+  - commands: {
+      ["editor.action.showReferences"] = <function 1>
+    }
+  - filetypes: javascript, javascriptreact, javascript.jsx, typescript, typescriptreact, typescript.tsx
+  - handlers: {
+      ["_typescript.rename"] = <function 1>
+    }
+  - init_options: {
+      hostInfo = "neovim"
+    }
+  - on_attach: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/ts_ls.lua:111>
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/ts_ls.lua:56>
+
+- vtsls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "vtsls", "--stdio" }
+  - filetypes: javascript, javascriptreact, javascript.jsx, typescript, typescriptreact, typescript.tsx
+  - init_options: {
+      hostInfo = "neovim"
+    }
+  - root_dir: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/vtsls.lua:82>
+
+- vue_ls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "vue-language-server", "--stdio" }
+  - filetypes: vue
+  - on_init: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/vue_ls.lua:26>
+  - root_markers: { "package.json" }
+
+- yamlls:
+  - capabilities: {
+      textDocument = {
+        completion = {
+          completionItem = {
+            commitCharactersSupport = false,
+            deprecatedSupport = true,
+            documentationFormat = { "markdown", "plaintext" },
+            insertReplaceSupport = true,
+            insertTextModeSupport = {
+              valueSet = { 1 }
+            },
+            labelDetailsSupport = true,
+            preselectSupport = false,
+            resolveSupport = {
+              properties = { "documentation", "detail", "additionalTextEdits", "command", "data" }
+            },
+            snippetSupport = true,
+            tagSupport = {
+              valueSet = { 1 }
+            }
+          },
+          completionList = {
+            itemDefaults = { "commitCharacters", "editRange", "insertTextFormat", "insertTextMode", "data" }
+          },
+          contextSupport = true,
+          insertTextMode = 1
+        }
+      }
+    }
+  - cmd: { "yaml-language-server", "--stdio" }
+  - filetypes: yaml, yaml.docker-compose, yaml.gitlab, yaml.helm-values
+  - on_init: <function @/Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-lspconfig/lsp/yamlls.lua:73>
+  - root_markers: { ".git" }
+  - settings: {
+      redhat = {
+        telemetry = {
+          enabled = false
+        }
+      },
+      yaml = {
+        format = {
+          enable = true
+        }
+      }
+    }
+
+
+vim.lsp: File Watcher ~
+- file watching "(workspace/didChangeWatchedFiles)" disabled on all clients
+
+vim.lsp: Position Encodings ~
+- No active clients
+
+==============================================================================
+vim.provider:                                                             6 ⚠️
+
+Clipboard (optional) ~
+- ✅ OK Clipboard tool found: pbcopy
+
+Node.js provider (optional) ~
+- Node.js: v20.9.0
+
+- Nvim node.js host: /Users/paulo.venonesdasilva/.nvm/versions/node/v20.9.0/lib/node_modules/neovim/bin/cli.js
+- ⚠️ WARNING Package "neovim" is out-of-date. Installed: 5.1.0, latest: 5.4.0
+  - ADVICE:
+    - Run in shell: npm install -g neovim
+    - Run in shell (if you use yarn): yarn global add neovim
+    - Run in shell (if you use pnpm): pnpm install -g neovim
+
+Perl provider (optional) ~
+- ⚠️ WARNING "Neovim::Ext" cpan module is not installed
+  - ADVICE:
+    - See :help |provider-perl| for more information.
+    - You can disable this provider (and warning) by adding `let g:loaded_perl_provider = 0` to your init.vim
+- ⚠️ WARNING No usable perl executable found
+
+Python 3 provider (optional) ~
+- ⚠️ WARNING No Python executable found that can `import neovim`. Using the first available executable for diagnostics.
+- ⚠️ WARNING Could not load Python :
+  /opt/homebrew/bin/python3 does not have the "neovim" module.
+  /opt/homebrew/bin/python3.13 does not have the "neovim" module.
+  /opt/homebrew/bin/python3.12 does not have the "neovim" module.
+  /opt/homebrew/bin/python3.11 does not have the "neovim" module.
+  python3.10 not found in search path or not executable.
+  python3.9 not found in search path or not executable.
+  python not found in search path or not executable.
+  - ADVICE:
+    - See :help |provider-python| for more information.
+    - You can disable this provider (and warning) by adding `let g:loaded_python3_provider = 0` to your init.vim
+- Executable: Not found
+
+Python virtualenv ~
+- ✅ OK no $VIRTUAL_ENV
+
+Ruby provider (optional) ~
+- Ruby: ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin24]
+- ⚠️ WARNING `neovim-ruby-host` not found.
+  - ADVICE:
+    - Run `gem install neovim` to ensure the neovim RubyGem is installed.
+    - Run `gem environment` to ensure the gem bin directory is in $PATH.
+    - If you are using rvm/rbenv/chruby, try "rehashing".
+    - See :help |g:ruby_host_prog| for non-standard gem installations.
+    - You can disable this provider (and warning) by adding `let g:loaded_ruby_provider = 0` to your init.vim
+
+==============================================================================
+vim.treesitter:                                                             ✅
+
+Treesitter features ~
+- Treesitter ABI support: min 13, max 15
+- WASM parser support: false
+
+Treesitter parsers ~
+- ✅ OK Parser: bash                      ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/bash.so
+- ✅ OK Parser: c                         ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/c.so
+- ✅ OK Parser: c                    (not loaded), path: /opt/homebrew/Cellar/neovim/0.11.5/lib/nvim/parser/c.so
+- ✅ OK Parser: diff                      ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/diff.so
+- ✅ OK Parser: html                      ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/html.so
+- ✅ OK Parser: java                      ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/java.so
+- ✅ OK Parser: lua                       ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/lua.so
+- ✅ OK Parser: lua                  (not loaded), path: /opt/homebrew/Cellar/neovim/0.11.5/lib/nvim/parser/lua.so
+- ✅ OK Parser: luadoc                    ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/luadoc.so
+- ✅ OK Parser: markdown                  ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so
+- ✅ OK Parser: markdown             (not loaded), path: /opt/homebrew/Cellar/neovim/0.11.5/lib/nvim/parser/markdown.so
+- ✅ OK Parser: markdown_inline           ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/markdown_inline.so
+- ✅ OK Parser: markdown_inline      (not loaded), path: /opt/homebrew/Cellar/neovim/0.11.5/lib/nvim/parser/markdown_inline.so
+- ✅ OK Parser: query                     ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/query.so
+- ✅ OK Parser: query                (not loaded), path: /opt/homebrew/Cellar/neovim/0.11.5/lib/nvim/parser/query.so
+- ✅ OK Parser: typescript                ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/typescript.so
+- ✅ OK Parser: vim                       ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/vim.so
+- ✅ OK Parser: vim                  (not loaded), path: /opt/homebrew/Cellar/neovim/0.11.5/lib/nvim/parser/vim.so
+- ✅ OK Parser: vimdoc                    ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/vimdoc.so
+- ✅ OK Parser: vimdoc               (not loaded), path: /opt/homebrew/Cellar/neovim/0.11.5/lib/nvim/parser/vimdoc.so
+- ✅ OK Parser: vue                       ABI: 14, path: /Users/paulo.venonesdasilva/.local/share/nvim/lazy/nvim-treesitter/parser/vue.so
+

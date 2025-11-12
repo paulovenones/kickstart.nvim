@@ -1,3 +1,4 @@
+require 'paulovenones'
 --[[
 
 =====================================================================
@@ -248,6 +249,9 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  -- spec = {
+  --   { import = 'paulovenones.plugins' },
+  -- },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -404,6 +408,11 @@ require('lazy').setup({
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
+        defaults = {
+          preview = {
+            treesitter = false,
+          },
+        },
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
@@ -426,9 +435,10 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<C-p>', builtin.git_files, {})
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -493,6 +503,57 @@ require('lazy').setup({
       'saghen/blink.cmp',
     },
     config = function()
+      local vue_language_server_path = vim.fn.expand '$MASON/packages' .. '/vue-language-server' .. '/node_modules/@vue/language-server'
+      local vue_plugin = {
+        name = '@vue/typescript-plugin',
+        location = vue_language_server_path,
+        languages = { 'vue' },
+        configNamespace = 'typescript',
+      }
+      local vtsls_config = {
+        settings = {
+          vtsls = {
+            tsserver = {
+              globalPlugins = {
+                vue_plugin,
+              },
+            },
+          },
+        },
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      }
+      local vue_ls_config = {
+        init_options = {
+          typescript = {},
+        },
+        on_attach = function(client)
+          client.server_capabilities.semanticTokensProvider.full = true
+        end,
+      }
+      vim.lsp.config('vtsls', vtsls_config)
+      vim.lsp.config('vue_ls', vue_ls_config)
+      vim.lsp.enable 'vue_ls'
+      vim.lsp.enable 'vtsls'
+      -- vim.lsp.config('vtsls', {
+      --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' },
+      --   settings = {
+      --     vtsls = { tsserver = { globalPlugins = {} } },
+      --     typescript = {
+      --       inlayHints = {
+      --         parameterNames = { enabled = 'literals' },
+      --         parameterTypes = { enabled = true },
+      --         variableTypes = { enabled = true },
+      --         propertyDeclarationTypes = { enabled = true },
+      --         functionLikeReturnTypes = { enabled = true },
+      --         enumMemberValues = { enabled = true },
+      --       },
+      --     },
+      --   },
+      --   on_attach = function(client)
+      --     client.server_capabilities.documentFormattingProvider = false
+      --     client.server_capabilities.documentRangeFormattingProvider = false
+      --   end,
+      -- })
       -- Brief aside: **What is LSP?**
       --
       -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -670,6 +731,9 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+
+      -- local vue_language_server = vim.fn.expand '$MASON/packages/vue-language-server/' .. '/node_modules/@vue/language-server'
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -681,9 +745,18 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
-        --
-
+        -- ts_ls = {
+        --   init_options = {
+        --     plugins = {
+        --       {
+        --         name = '@vue/typescript-plugin',
+        --         location = vue_language_server,
+        --         languages = { 'vue' },
+        --       },
+        --     },
+        --   },
+        --   filetypes = { 'typescript', 'javascript', 'vue' },
+        -- },
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -944,7 +1017,22 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'vue',
+        'typescript',
+        'javascript',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -984,7 +1072,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'paulovenones.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
