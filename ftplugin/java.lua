@@ -1,6 +1,12 @@
 -- Only runs when opening a Java file
 local jdtls = require('jdtls')
 
+-- Set indentation to 4 spaces for Java files
+vim.opt_local.expandtab = true      -- Use spaces instead of tabs
+vim.opt_local.tabstop = 4           -- Number of spaces a tab counts for
+vim.opt_local.softtabstop = 4       -- Number of spaces a tab counts for when editing
+vim.opt_local.shiftwidth = 4        -- Number of spaces for each step of indent
+
 -- Paths
 local mason_path = vim.fn.stdpath('data') .. '/mason/packages/jdtls'
 local lombok_path = mason_path .. '/lombok.jar'
