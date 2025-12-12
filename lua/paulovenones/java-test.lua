@@ -11,7 +11,7 @@ M.last_test_command = nil
 local ns_id = vim.api.nvim_create_namespace('java_test_results')
 
 -- Test results cache: stores results per buffer and line
--- Structure: { [bufnr] = { [line] = { status = "passed"|"failed", name = "testName" } } }
+-- Structure: { [bufnr] = { [line] = { status = "passed"|"failed", name = "testName", error = "error message" } } }
 M.test_results = {}
 
 -- Define signs for test results
@@ -130,6 +130,27 @@ local function parse_test_output(output)
           full_name = current_class .. '.' .. (method or display_name)
         }
 
+        -- Capture error message for failed tests (appears on lines after FAILED)
+        if status == 'FAILED' then
+          local error_lines = {}
+          -- Look at the next few lines for error details
+          for j = i + 1, math.min(i + 20, #lines) do
+            local next_line = lines[j]
+            -- Stop if we hit another test or empty line after content
+            if next_line:match('^%s+Test%s+') or next_line:match('^[%w%.]') then
+              break
+            end
+            -- Capture indented lines that contain error info
+            if next_line:match('^%s+') and next_line:match('%S') then
+              table.insert(error_lines, next_line:match('^%s*(.-)%s*$'))
+            elseif #error_lines > 0 then
+              -- Empty line after we've captured some errors, stop
+              break
+            end
+          end
+          test_info.error = table.concat(error_lines, '\n')
+        end
+
         if status == 'PASSED' then
           table.insert(results.passed, test_info)
         elseif status == 'FAILED' then
@@ -231,7 +252,7 @@ local function update_test_indicators(bufnr, test_results)
     if line then
       place_sign(bufnr, line, 'TestFailed')
       add_virtual_text(bufnr, line, '  ✗ failed', 'DiagnosticError')
-      M.test_results[bufnr][line] = { status = 'failed', name = search_name }
+      M.test_results[bufnr][line] = { status = 'failed', name = search_name, error = test.error }
     end
   end
 
@@ -592,6 +613,68 @@ function M.toggle_indicators()
   else
     vim.notify('No test results to show. Run tests first.', vim.log.levels.WARN)
   end
+end
+
+-- Show test error details for the test on the current line
+function M.show_test_error()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local line = cursor[1]
+
+  -- Check if there's a test result for this line
+  if not M.test_results[bufnr] or not M.test_results[bufnr][line] then
+    vim.notify('No test result on this line', vim.log.levels.WARN)
+    return
+  end
+
+  local test_result = M.test_results[bufnr][line]
+
+  if test_result.status ~= 'failed' then
+    vim.notify(string.format('Test "%s" passed', test_result.name), vim.log.levels.INFO)
+    return
+  end
+
+  if not test_result.error or test_result.error == '' then
+    vim.notify('No error details captured for this test', vim.log.levels.WARN)
+    return
+  end
+
+  -- Create a floating window to show the error
+  local error_lines = vim.split(test_result.error, '\n')
+
+  -- Calculate window size
+  local width = 0
+  for _, l in ipairs(error_lines) do
+    width = math.max(width, #l)
+  end
+  width = math.min(width, vim.o.columns - 4)
+  local height = math.min(#error_lines, math.floor(vim.o.lines * 0.5))
+
+  -- Create buffer for error content
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, error_lines)
+  vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+  vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
+
+  -- Open floating window
+  local opts = {
+    relative = 'cursor',
+    width = width,
+    height = height,
+    row = 1,
+    col = 0,
+    style = 'minimal',
+    border = 'rounded',
+    title = ' Test Failure: ' .. test_result.name .. ' ',
+    title_pos = 'center',
+  }
+
+  local win = vim.api.nvim_open_win(buf, true, opts)
+  vim.api.nvim_win_set_option(win, 'winhl', 'Normal:Normal,FloatBorder:DiagnosticError')
+
+  -- Set keymap to close the window
+  vim.api.nvim_buf_set_keymap(buf, 'n', 'q', ':close<CR>', { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', ':close<CR>', { noremap = true, silent = true })
 end
 
 return M
