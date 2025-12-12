@@ -52,3 +52,10 @@ vim.keymap.set('n', '<leader>tc', test.run_class_tests, { buffer = true, desc = 
 vim.keymap.set('n', '<leader>tl', test.run_last, { buffer = true, desc = '[T]est: Run [L]ast test' })
 vim.keymap.set('n', '<leader>tu', test.run_unit_tests, { buffer = true, desc = '[T]est: Run all [U]nit tests' })
 vim.keymap.set('n', '<leader>ti', test.run_integration_tests, { buffer = true, desc = '[T]est: Run all [I]ntegration tests' })
+vim.keymap.set('n', '<leader>tx', test.clear_indicators, { buffer = true, desc = '[T]est: Clear indicators' })
+
+-- Helper to view test output debug log
+vim.keymap.set('n', '<leader>td', function()
+  local log_file = vim.fn.stdpath('cache') .. '/java-test-output.log'
+  vim.cmd('vsplit ' .. log_file)
+end, { buffer = true, desc = '[T]est: View [D]ebug log' })
