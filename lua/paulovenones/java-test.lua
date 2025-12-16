@@ -72,8 +72,9 @@ local function parse_test_output(output)
   -- Parse test-logger summary: "Executed X tests in Ys (Y failed)"
   -- Examples: "SUCCESS: Executed 5 tests in 2.3s"
   --           "FAILURE: Executed 1 tests in 40.3s (1 failed)"
-  local total_tests = output:match('Executed (%d+) tests? in')
-  local failed_tests = output:match('%((%d+) failed%)')
+  -- Also try: "18 passing (46.5s)" format
+  local total_tests = output:match('Executed (%d+) tests? in') or output:match('(%d+) passing')
+  local failed_tests = output:match('%((%d+) failed%)') or output:match('(%d+) failing')
 
   if total_tests then
     local total = tonumber(total_tests)
@@ -484,19 +485,26 @@ function M.run_nearest_test(test_type)
     M.run_nearest_test(test_type)
   end
 
-  -- Show terminal with normal gradle output (without --console=plain for better UX)
-  local display_cmd = string.format('./gradlew %s --tests "%s"', test_type, test_filter)
+  -- Show terminal and capture output for parsing
+  -- Add --rerun-tasks to force test execution even if Gradle thinks they're up-to-date
+  -- Use --console=plain to get parseable output
+  local display_cmd = string.format('cd "%s" && ./gradlew %s --tests "%s" --rerun-tasks --console=plain', root_dir, test_type, test_filter)
+
+  -- Save current window
+  local orig_win = vim.api.nvim_get_current_win()
+
   vim.cmd('botright split')
   vim.cmd('resize 15')
-  vim.cmd('terminal cd "' .. root_dir .. '" && ' .. display_cmd)
-  vim.cmd('startinsert')
+  local term_buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_win_set_buf(0, term_buf)
 
-  -- Run a background job with --console=plain to capture parseable output
-  local parse_cmd = string.format('./gradlew %s --tests "%s" --console=plain', test_type, test_filter)
+  -- Set scrollback and enable auto-scroll
+  vim.api.nvim_buf_set_option(term_buf, 'scrollback', 100000)
+
+  -- Capture output for parsing
   local output_lines = {}
-  local shell_cmd = string.format('cd "%s" && %s', root_dir or '.', parse_cmd)
 
-  local job_id = vim.fn.jobstart(shell_cmd, {
+  local term_chan = vim.fn.termopen(display_cmd, {
     on_stdout = function(_, data)
       if data then
         for _, line in ipairs(data) do
@@ -506,16 +514,8 @@ function M.run_nearest_test(test_type)
         end
       end
     end,
-    on_stderr = function(_, data)
-      if data then
-        for _, line in ipairs(data) do
-          if line ~= "" then
-            table.insert(output_lines, line)
-          end
-        end
-      end
-    end,
-    on_exit = function(_, exit_code)
+    on_exit = function(job_id, exit_code, event_type)
+      -- Parse the captured output
       local full_output = table.concat(output_lines, '\n')
       vim.schedule(function()
         local test_results = parse_test_output(full_output)
@@ -523,8 +523,17 @@ function M.run_nearest_test(test_type)
           update_test_indicators(bufnr, test_results)
         end
       end)
-    end,
+    end
   })
+
+  -- Keep cursor at bottom for auto-scroll
+  vim.cmd('normal! G')
+
+  vim.defer_fn(function()
+    if vim.api.nvim_win_is_valid(orig_win) then
+      vim.api.nvim_set_current_win(orig_win)
+    end
+  end, 100)
 end
 
 
@@ -555,19 +564,26 @@ function M.run_class_tests(test_type)
     M.run_class_tests(test_type)
   end
 
-  -- Show terminal with normal gradle output (without --console=plain for better UX)
-  local display_cmd = string.format('./gradlew %s --tests "%s"', test_type, full_class)
+  -- Show terminal and capture output for parsing
+  -- Add --rerun-tasks to force test execution even if Gradle thinks they're up-to-date
+  -- Use --console=plain to get parseable output
+  local display_cmd = string.format('cd "%s" && ./gradlew %s --tests "%s" --rerun-tasks --console=plain', root_dir, test_type, full_class)
+
+  -- Save current window
+  local orig_win = vim.api.nvim_get_current_win()
+
   vim.cmd('botright split')
   vim.cmd('resize 15')
-  vim.cmd('terminal cd "' .. root_dir .. '" && ' .. display_cmd)
-  vim.cmd('startinsert')
+  local term_buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_win_set_buf(0, term_buf)
 
-  -- Run a background job with --console=plain to capture parseable output
-  local parse_cmd = string.format('./gradlew %s --tests "%s" --console=plain', test_type, full_class)
+  -- Set scrollback and enable auto-scroll
+  vim.api.nvim_buf_set_option(term_buf, 'scrollback', 100000)
+
+  -- Capture output for parsing
   local output_lines = {}
-  local shell_cmd = string.format('cd "%s" && %s', root_dir or '.', parse_cmd)
 
-  local job_id = vim.fn.jobstart(shell_cmd, {
+  local term_chan = vim.fn.termopen(display_cmd, {
     on_stdout = function(_, data)
       if data then
         for _, line in ipairs(data) do
@@ -577,16 +593,8 @@ function M.run_class_tests(test_type)
         end
       end
     end,
-    on_stderr = function(_, data)
-      if data then
-        for _, line in ipairs(data) do
-          if line ~= "" then
-            table.insert(output_lines, line)
-          end
-        end
-      end
-    end,
-    on_exit = function(_, exit_code)
+    on_exit = function(job_id, exit_code, event_type)
+      -- Parse the captured output
       local full_output = table.concat(output_lines, '\n')
       vim.schedule(function()
         local test_results = parse_test_output(full_output)
@@ -594,8 +602,17 @@ function M.run_class_tests(test_type)
           update_test_indicators(bufnr, test_results)
         end
       end)
-    end,
+    end
   })
+
+  -- Keep cursor at bottom for auto-scroll
+  vim.cmd('normal! G')
+
+  vim.defer_fn(function()
+    if vim.api.nvim_win_is_valid(orig_win) then
+      vim.api.nvim_set_current_win(orig_win)
+    end
+  end, 100)
 end
 
 -- Clear test indicators for current buffer
@@ -675,6 +692,145 @@ function M.show_test_error()
   -- Set keymap to close the window
   vim.api.nvim_buf_set_keymap(buf, 'n', 'q', ':close<CR>', { noremap = true, silent = true })
   vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', ':close<CR>', { noremap = true, silent = true })
+end
+
+-- Show a picker with all test results
+function M.show_test_list()
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  if not M.test_results[bufnr] or not next(M.test_results[bufnr]) then
+    vim.notify('No test results available. Run tests first.', vim.log.levels.WARN)
+    return
+  end
+
+  -- Collect all tests with their line numbers
+  local tests = {}
+  for line, result in pairs(M.test_results[bufnr]) do
+    table.insert(tests, {
+      line = line,
+      name = result.name,
+      status = result.status,
+      error = result.error,
+    })
+  end
+
+  -- Sort by line number
+  table.sort(tests, function(a, b) return a.line < b.line end)
+
+  -- Create display lines
+  local display_lines = {}
+  for _, test in ipairs(tests) do
+    local icon = test.status == 'passed' and '✓' or '✗'
+    local hl = test.status == 'passed' and 'DiagnosticOk' or 'DiagnosticError'
+    local line_text = string.format('%s %s (line %d)', icon, test.name, test.line)
+    table.insert(display_lines, line_text)
+  end
+
+  -- Add help text to display lines
+  table.insert(display_lines, '')
+  table.insert(display_lines, '─────────────────────────────────────────────────────────────────────────────────')
+  table.insert(display_lines, 'Press <CR> to jump | e to show error | q/<Esc> to close')
+
+  -- Create a floating window with the list
+  local width = 80
+  local height = math.min(#display_lines, 20)
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, display_lines)
+  vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
+  vim.api.nvim_buf_set_option(buf, 'filetype', 'test-results')
+
+  -- Apply syntax highlighting
+  for i, test in ipairs(tests) do
+    local hl = test.status == 'passed' and 'DiagnosticOk' or 'DiagnosticError'
+    vim.api.nvim_buf_add_highlight(buf, -1, hl, i - 1, 0, 1)
+  end
+
+  -- Highlight help text
+  local help_start = #tests
+  vim.api.nvim_buf_add_highlight(buf, -1, 'Comment', help_start, 0, -1)
+  vim.api.nvim_buf_add_highlight(buf, -1, 'Comment', help_start + 1, 0, -1)
+
+  -- Now make buffer non-modifiable
+  vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+
+  local opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    row = math.floor((vim.o.lines - height) / 2),
+    col = math.floor((vim.o.columns - width) / 2),
+    style = 'minimal',
+    border = 'rounded',
+    title = ' Test Results ',
+    title_pos = 'center',
+  }
+
+  local win = vim.api.nvim_open_win(buf, true, opts)
+
+  -- Set keymaps for navigation
+  local function jump_to_test()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local idx = cursor[1]
+    local test = tests[idx]
+
+    -- Close the picker window
+    vim.api.nvim_win_close(win, true)
+
+    -- Jump to the test line in the original buffer
+    vim.api.nvim_win_set_buf(0, bufnr)
+    vim.api.nvim_win_set_cursor(0, {test.line, 0})
+    vim.cmd('normal! zz')  -- Center the line in the window
+  end
+
+  vim.api.nvim_buf_set_keymap(buf, 'n', '<CR>', '', {
+    noremap = true,
+    silent = true,
+    callback = jump_to_test
+  })
+  vim.api.nvim_buf_set_keymap(buf, 'n', 'q', ':close<CR>', { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', ':close<CR>', { noremap = true, silent = true })
+
+  -- Add keymap to show error details
+  vim.api.nvim_buf_set_keymap(buf, 'n', 'e', '', {
+    noremap = true,
+    silent = true,
+    callback = function()
+      local cursor = vim.api.nvim_win_get_cursor(0)
+      local idx = cursor[1]
+      local test = tests[idx]
+
+      if test.status == 'failed' and test.error and test.error ~= '' then
+        -- Show error in a new floating window
+        local error_lines = vim.split(test.error, '\n')
+        local error_buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(error_buf, 0, -1, false, error_lines)
+        vim.api.nvim_buf_set_option(error_buf, 'modifiable', false)
+
+        local error_width = math.min(100, vim.o.columns - 10)
+        local error_height = math.min(#error_lines, math.floor(vim.o.lines * 0.5))
+
+        local error_opts = {
+          relative = 'editor',
+          width = error_width,
+          height = error_height,
+          row = math.floor((vim.o.lines - error_height) / 2),
+          col = math.floor((vim.o.columns - error_width) / 2),
+          style = 'minimal',
+          border = 'rounded',
+          title = ' Error: ' .. test.name .. ' ',
+          title_pos = 'center',
+        }
+
+        local error_win = vim.api.nvim_open_win(error_buf, true, error_opts)
+        vim.api.nvim_win_set_option(error_win, 'winhl', 'Normal:Normal,FloatBorder:DiagnosticError')
+        vim.api.nvim_buf_set_keymap(error_buf, 'n', 'q', ':close<CR>', { noremap = true, silent = true })
+        vim.api.nvim_buf_set_keymap(error_buf, 'n', '<Esc>', ':close<CR>', { noremap = true, silent = true })
+      else
+        vim.notify('Test passed - no error details', vim.log.levels.INFO)
+      end
+    end
+  })
 end
 
 return M

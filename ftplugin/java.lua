@@ -54,6 +54,7 @@ vim.keymap.set('n', '<leader>tu', test.run_unit_tests, { buffer = true, desc = '
 vim.keymap.set('n', '<leader>ti', test.run_integration_tests, { buffer = true, desc = '[T]est: Run all [I]ntegration tests' })
 vim.keymap.set('n', '<leader>tx', test.clear_indicators, { buffer = true, desc = '[T]est: Clear indicators' })
 vim.keymap.set('n', '<leader>te', test.show_test_error, { buffer = true, desc = '[T]est: Show [E]rror details' })
+vim.keymap.set('n', '<leader>ts', test.show_test_list, { buffer = true, desc = '[T]est: Show test list/[S]ummary' })
 
 -- Helper to view test output debug log
 vim.keymap.set('n', '<leader>td', function()
